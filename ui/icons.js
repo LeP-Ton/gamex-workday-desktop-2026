@@ -93,6 +93,11 @@ const appAssets = {
   "windows-settings": "windows-settings.svg",
   notepad: "notepad.png",
   computer: "computer.svg",
+  "wechat-windows": "wechat-windows.png",
+  "settings-windows": "settings-windows.png",
+  "file-explorer-windows": "file-explorer-windows.png",
+  "excel-windows": "excel-windows.svg",
+  "word-windows": "word-windows.svg",
 };
 export const appIcon = (name, size = 32, className = "") => {
   const source = (key) =>
@@ -104,12 +109,15 @@ export const appIcon = (name, size = 32, className = "") => {
     `<img class="app-icon ${className} ${extra}" src="${source(key)}" width="${size}" height="${size}" alt="" aria-hidden="true" draggable="false">`;
   const windows = {
     vscode: "vscode-windows",
-    folder: "explorer",
-    settings: "windows-settings",
+    excel: "excel-windows",
+    word: "word-windows",
+    wechat: "wechat-windows",
+    folder: "file-explorer-windows",
+    settings: "settings-windows",
     notes: "notepad",
   }[name];
   return windows
-    ? `<span class="platform-icon" style="width:${size}px;height:${size}px">${img(name, "mac-asset")}${img(windows, "windows-asset")}</span>`
+    ? `<span class="platform-icon" style="--app-icon-size:${size}px">${img(name, "mac-asset")}${img(windows, "windows-asset")}</span>`
     : img(name);
 };
 export const icon = (name, size = 18) =>

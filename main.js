@@ -29,6 +29,7 @@ import { renderWeChat } from "./apps/wechat.js";
 import { renderSetup } from "./ui/setup.js";
 import { renderOvertime, renderReport, renderHistory } from "./ui/report.js";
 import { icon, appIcon, escapeHtml as e } from "./ui/icons.js";
+import { renderAvatar } from "./ui/avatars.js";
 
 const pendingStorageMessages = [];
 const storage = new Storage(undefined, (message) => {
@@ -84,20 +85,34 @@ document
   .querySelector(".desktop")
   .insertAdjacentHTML("beforeend", renderStartMenu(professions.programmer));
 const $ = (selector) => document.querySelector(selector);
+const openedWindows = new Set(["work", "wechat"]);
 const wm = new WindowManager(
   $("#window-space"),
   () => {
     inspectUntil = performance.now() + 8000;
   },
-  () => saveSession(),
+  () => {
+    syncDockState();
+    saveSession();
+  },
   (id) => {
     activeWindowId = id;
+    openedWindows.add(id);
     $("#app-menus").innerHTML = appMenus(
       professions[regular?.input.professionId ?? config.professionId],
       id,
     );
+    syncDockState();
   },
 );
+function syncDockState() {
+  document.querySelectorAll(".dock .dock-icon[data-open]").forEach((button) => {
+    const id = button.dataset.open;
+    const active = id === activeWindowId && !wm.windows.get(id)?.hidden;
+    button.classList.toggle("is-running", openedWindows.has(id));
+    button.classList.toggle("is-active", active);
+  });
+}
 const W = $("#window-space").clientWidth,
   H = $("#window-space").clientHeight;
 const workContent = wm.create(
@@ -156,6 +171,7 @@ function setTheme(os) {
     delete $(".dock-start").dataset.action;
   }
   $(".dock-start").title = os === "windows" ? "开始" : "访达";
+  $(".settings-dock").title = os === "windows" ? "设置" : "系统设置";
   $("#start-menu").hidden = true;
   $(".system-switch").innerHTML =
     `${icon(os === "macos" ? "windows" : "apple", 13)}<span>${os === "macos" ? "Windows 11" : "macOS Sonoma"}</span>`;
@@ -221,6 +237,7 @@ function renderBrief() {
 }
 function renderScene(action) {
   renderWork();
+  syncDockState();
   wm.setTitle("wechat", "微信");
   chatContent.innerHTML = renderWeChat(currentState, selectedConversation);
   renderBrief();
@@ -249,7 +266,8 @@ function renderScene(action) {
     (m) => m.status === "unread",
   ).length;
   $("#dock-unread").hidden = !unread;
-  $("#dock-unread").textContent = unread;
+  $("#dock-unread").textContent = unread > 99 ? "99+" : unread;
+  $("#dock-unread").setAttribute("aria-label", `${unread} 条未读微信消息`);
   if (drawerOpen) renderDrawer();
   if (action && performance.now() > inspectUntil) {
     if (action.kind.startsWith("chat.") && action.kind !== "chat.defer") {
@@ -271,7 +289,7 @@ function renderScene(action) {
     );
     if (message) {
       const node = $("#notification");
-      node.innerHTML = `<span class="notification-icon">${appIcon("wechat", 36)}</span><div><b>${people[message.source].name}<small>微信 · 现在</small></b><p>${e(message.text)}</p></div>`;
+      node.innerHTML = `<span class="notification-icon">${renderAvatar(message.source, { className: "notification-avatar" })}<span class="notification-brand">${appIcon("wechat", 14)}</span></span><div><b>${people[message.source].name}<small>微信 · 现在</small></b><p>${e(message.text)}</p></div>`;
       node.hidden = false;
       clearTimeout(renderScene.notice);
       renderScene.notice = setTimeout(() => (node.hidden = true), 4200);

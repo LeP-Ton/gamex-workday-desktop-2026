@@ -46,3 +46,21 @@ Windows 主壁纸来自原作者项目页，并不是超宽版的拉伸；超宽
 - 图标和壁纸的格式、尺寸与文件头经本地工具检查。
 - Photoshop 与三份 Fluent SVG 均已检查，不包含脚本、外部资源引用或事件处理器。
 - 实际在页面中的展示、主题切换、窗口及软件交互由主需求的界面阶段统一验收。
+
+## Windows 任务栏返修素材
+
+采集日期：2026-11-09。以下素材替代 Windows 主题中的 macOS 底板或通用符号，旧文件保留历史来源记录。
+
+| 文件 | 来源与处理 | 用途 |
+| --- | --- | --- |
+| `icons/wechat-windows.png` | [微信 Windows 官网](https://pc.weixin.qq.com/)直接引用的[官网图标](https://res.wx.qq.com/a/wx_fed/assets/res/NTI4MWU5.ico)；实际文件为 32×32 透明 PNG，仅按真实格式命名，无重新绘制 | Windows 微信入口的透明绿色微信标识，区别于 macOS 圆角底板；来自官网，不宣称从 Windows EXE 提取 |
+| `icons/settings-windows.png` | [Windows Settings app icon (2).png](https://commons.wikimedia.org/wiki/File:Windows_Settings_app_icon_(2).png)，文件页记录作者为 Microsoft、2023-02-13 从 `ImmersiveControlPanel` 提取的 Windows 11 图标；[256×256 原图](https://upload.wikimedia.org/wikipedia/commons/0/0f/Windows_Settings_app_icon_%282%29.png) | 使用灰色立体齿轮和蓝色内圈，替代原线框设置符号 |
+| `icons/file-explorer-windows.png` | [Microsoft PowerToys 官方仓库图标](https://github.com/microsoft/PowerToys/blob/main/doc/images/icons/File%20Explorer%20Preview.png)，192×192 透明 PNG，原样保存；原仓库许可保存在 [PowerToys 许可](LICENSE-powertoys.txt) | 黄色文件夹与蓝色夹扣的 Windows 风格文档入口，替代通用 Emoji 文件夹；不宣称从本机 Windows 提取 |
+| `icons/excel-windows.svg` | [微软 Office 官方 CDN](https://res.cdn.office.net/files/fabric-cdn-prod_20221201.001/assets/brand-icons/product/svg/excel_48x1.svg)，`fabric-cdn-prod_20221201.001` 版产品图标 | Windows Excel 平面产品图标，与本机 macOS 图标分别使用 |
+| `icons/word-windows.svg` | [微软 Office 官方 CDN](https://res.cdn.office.net/files/fabric-cdn-prod_20221201.001/assets/brand-icons/product/svg/word_48x1.svg)，`fabric-cdn-prod_20221201.001` 版产品图标 | Windows Word 平面产品图标，与本机 macOS 图标分别使用 |
+
+设置图标的 curl 下载两次遇到 SSL 连接超时，改用独立 Chrome 后取得原图。微软支持页提供的 16×16 图标仅作来源核对，未用其放大替代原图。品牌权利仍归原厂商；记录来源不代表项目统一授予这些素材开源许可。新增 Office SVG 经检查不含脚本、外部引用或事件处理器。
+
+## 微信照片式头像
+
+`avatars/boss.jpg`、`client.jpg`、`colleague.jpg` 与 `self.jpg` 为 imagegen 内置工具生成的虚构联系人生活照及宠物照，项目导出为 256×256 JPEG。它们不属于真实软件原厂素材，也不对应真实个人。完整提示词、身份映射与原始文件记录见[头像素材说明](avatars/README.md)。

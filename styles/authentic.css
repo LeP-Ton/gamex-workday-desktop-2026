@@ -959,6 +959,41 @@ body[data-os="windows"] .wallpaper {
   border-radius: 3px;
   color: white;
 }
+.wechat-avatar {
+  background: #d7d6d4;
+  flex-shrink: 0;
+  overflow: visible;
+}
+.wechat-avatar > img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+  user-select: none;
+}
+.notification-icon {
+  position: relative;
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+}
+.notification-icon > .notification-avatar {
+  width: 36px;
+  height: 36px;
+}
+.notification-brand {
+  position: absolute;
+  right: -1px;
+  bottom: -1px;
+  display: grid;
+  place-items: center;
+  width: 17px;
+  height: 17px;
+  padding: 1px;
+  border-radius: 4px;
+  background: #fff;
+}
 .unread-badge {
   background: #fa5151;
   font-size: 9px;
@@ -1968,41 +2003,71 @@ body[data-os="windows"] .photoshop-menubar > b {
   font-size: 13px;
 }
 body[data-os="windows"] .dock {
-  height: 49px;
+  --taskbar-icon-size: 24px;
+  height: 48px;
   bottom: 0;
   padding: 0 170px;
-  gap: 12px;
+  gap: 4px;
   background: #f3f3f3df;
   backdrop-filter: blur(30px) saturate(1.5);
   border-top: 1px solid #fff9;
   box-shadow: 0 -1px 8px #00000005;
 }
 body[data-os="windows"] .dock > button {
-  width: 39px;
-  height: 39px;
-  min-width: 33px;
+  width: 44px;
+  height: 40px;
+  min-width: 40px;
   border-radius: 4px;
   flex-shrink: 0;
+  display: grid;
+  place-items: center;
 }
 body[data-os="windows"] .dock > button img {
-  width: 31px;
-  height: 31px;
+  width: var(--taskbar-icon-size);
+  height: var(--taskbar-icon-size);
   filter: none;
+}
+body[data-os="windows"] .dock > button .platform-icon,
+body[data-os="windows"] .dock #work-dock-icon {
+  display: grid;
+  place-items: center;
+  width: var(--taskbar-icon-size);
+  height: var(--taskbar-icon-size);
+}
+body[data-os="windows"] .dock > button.is-active {
+  background: #ffffff70;
 }
 body[data-os="windows"] .dock > button:hover {
   transform: none;
   background: #ffffff80 !important;
 }
 body[data-os="windows"] .dock-separator,
-body[data-os="windows"] .dock-trash {
+body[data-os="windows"] .dock > .dock-trash {
   display: none;
 }
 body[data-os="windows"] .dock-icon > i {
-  width: 15px;
+  display: none;
+  width: 6px;
   height: 3px;
   border-radius: 4px;
-  bottom: 0;
+  bottom: 2px;
+  background: #81878d;
+}
+body[data-os="windows"] .dock-icon.is-running > i {
+  display: block;
+}
+body[data-os="windows"] .dock-icon.is-active > i {
+  width: 16px;
   background: #0078d4;
+}
+body[data-os="windows"] #dock-unread {
+  top: 0;
+  right: 2px;
+  min-width: 16px;
+  height: 16px;
+  font-size: 10px;
+  padding: 0 3px;
+  border: 1px solid #f3f3f3;
 }
 body[data-os="windows"] .windows-tray {
   display: flex;
@@ -2015,8 +2080,8 @@ body[data-os="windows"] .windows-tray {
 }
 .windows-start-symbol {
   display: grid;
-  grid-template-columns: repeat(2, 10px);
-  grid-template-rows: repeat(2, 10px);
+  grid-template-columns: repeat(2, 11px);
+  grid-template-rows: repeat(2, 11px);
   gap: 2px;
 }
 .windows-start-symbol > i {
@@ -2850,8 +2915,8 @@ select {
     height: 36px;
   }
   body[data-os="windows"] .dock > button img {
-    width: 28px;
-    height: 28px;
+    width: var(--taskbar-icon-size);
+    height: var(--taskbar-icon-size);
   }
   body[data-os="windows"] .dock [data-action="history"] {
     display: none;
@@ -2896,6 +2961,8 @@ select {
   justify-content: center;
   flex-shrink: 0;
   vertical-align: middle;
+  width: var(--app-icon-size);
+  height: var(--app-icon-size);
 }
 .windows-asset {
   display: none;

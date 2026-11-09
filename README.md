@@ -14,11 +14,11 @@
 
 macOS 桌面中的 VS Code 与微信：
 
-![macOS 桌面、VS Code 与微信](.agentdocs/workflow/REQ-20261109143131-单职业桌面模拟器/验收截图/拟真返修/macOS-VSCode与微信.jpg)
+![macOS 桌面、VS Code 与微信](.agentdocs/workflow/REQ-20261109143131-单职业桌面模拟器/验收截图/任务栏头像返修/线上-macOS桌面.jpg)
 
 Windows 桌面中的 VS Code 与微信：
 
-![Windows 桌面、VS Code 与微信](.agentdocs/workflow/REQ-20261109143131-单职业桌面模拟器/验收截图/拟真返修/Windows-VSCode与微信.jpg)
+![Windows 桌面、VS Code 与微信](.agentdocs/workflow/REQ-20261109143131-单职业桌面模拟器/验收截图/任务栏头像返修/线上-Windows桌面.jpg)
 
 ## 本地运行
 

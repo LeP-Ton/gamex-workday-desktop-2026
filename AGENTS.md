@@ -26,6 +26,7 @@
 - `desktop/`、`apps/`、`ui/`：窗口与系统外壳、办公软件仿真、配置和报告页面。
 - `meta/`：持久化、版本兼容、策略预设和历史比较。
 - `assets/`：本地应用图标和系统壁纸，来源与原始资源版本见 `assets/SOURCES.md`；真实界面覆盖层集中在 `styles/authentic.css`，不把外观逻辑加入模拟引擎。
+- `public/`：直接复制到构建产物的站点静态文件；`vite.config.js` 使用相对资源路径，兼容 GitHub Pages 仓库子目录。
 - 上述源码目录是架构约定，实际文件随功能阶段建立，不预建空壳。
 - `.agentdocs/index.md` 只管理需求入口、简要目标、状态和读取场景。
 - `.agentdocs/workflow/<需求ID>-<简短需求名>/README.md` 维护范围、验收标准、当前有效结论、待办与阶段入口。
@@ -48,5 +49,6 @@
 - 使用 Node.js 20.19 及以上版本；安装依赖使用 `npm ci`，内网镜像不可达时可以显式选择公共 npm registry，避免修改用户全局设置。
 - `npm run dev` 启动 Vite 本地服务；`npm run build` 输出 `dist/`；`npm run preview` 预览构建结果；`npm test` 运行自动化测试。
 - 引擎测试使用 Node 内置 `node:test`，前端构建使用 Vite；不增加重型运行依赖。
+- `.github/workflows/pages.yml` 在 `main` 程序或配置变更后自动测试、构建并发布 GitHub Pages，文档和验收截图更新跳过部署；需要时可在 Actions 手动触发。只上传 `dist/`，不上传依赖或需求文档为站点内容。
 - 根据影响范围验证，分别记录文档检查、单元测试、构建、浏览器验证和人工验收结果。未执行项目明确标记未验证。
 - 交付简述需求、本次修改、主要文件、验证和未验证项，并链接需求 README 或阶段记录。

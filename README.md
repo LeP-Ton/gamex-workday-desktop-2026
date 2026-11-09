@@ -4,6 +4,12 @@
 
 原生 JavaScript 单机网页游戏：选择职业与桌面外观，配置工作策略，观看虚拟员工自动处理任务和微信。在第 10 轮决定是否加班，完成 12 轮后复盘绩效，比较不同策略。
 
+## 在线试玩
+
+[打开打工人桌面模拟器：2026](https://lep-ton.github.io/gamex-workday-desktop-2026/)
+
+直接在浏览器开始游戏，无需登录或安装。设置、当前进度和历史保存在当前浏览器中。
+
 ## 界面预览
 
 macOS 桌面中的 VS Code 与微信：
@@ -67,3 +73,9 @@ npm run preview
 | `tests/` | 确定性、因果、恢复、评分、边界与 640 组策略样本 |
 
 需求和实际验证以[需求 README](.agentdocs/workflow/REQ-20261109143131-单职业桌面模拟器/README.md)及其阶段记录为准。自动化模拟长时播放与真实隔夜挂机分别记录，不能互相替代。
+
+## GitHub Pages 部署
+
+仓库使用 GitHub Actions 发布 `dist/`。推送到 `main` 的程序或构建配置变更会依次执行依赖安装、`npm test`、`npm run build` 和部署；文档与验收截图更新不触发重复部署，也可从 Actions 手动运行。Pages 的发布来源应设置为 GitHub Actions。
+
+`vite.config.js` 使用相对资源路径，使脚本、样式、图标与壁纸在仓库子目录中正确加载。本地运行和构建命令保持一致。

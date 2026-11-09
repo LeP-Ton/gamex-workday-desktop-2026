@@ -1,0 +1,56 @@
+name: 部署 GitHub Pages
+
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - ".agentdocs/**"
+      - "**/*.md"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: 测试与构建
+    runs-on: ubuntu-latest
+    steps:
+      - name: 检出源码
+        uses: actions/checkout@v6
+      - name: 配置 Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "22"
+          cache: npm
+      - name: 安装锁定依赖
+        run: npm ci --registry=https://registry.npmjs.org
+      - name: 运行自动化测试
+        run: npm test
+      - name: 构建静态页面
+        run: npm run build
+      - name: 配置 GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: 上传静态页面
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+
+  deploy:
+    name: 发布在线游戏
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: 发布 GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
